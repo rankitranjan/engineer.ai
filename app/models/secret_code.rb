@@ -22,4 +22,8 @@ class SecretCode < ApplicationRecord
 	    end
 	end
 
+	def self.available_secret_code
+		where(user_id: nil).last.code
+	end
+
 end

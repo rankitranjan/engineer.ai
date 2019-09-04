@@ -26,21 +26,19 @@
       <%= f.password_field :password_confirmation, autocomplete: "new-password", :class => 'form-control', placeholder: 'Enter password confirmation' %>
     </div>  
   </div>
-  
-  <%= f.fields_for :secret_code_attributes, resource.secret_code do |ff|%>
-  <%#= f.fields_for(:secret_code) do |ff|%>
-  <div class="form-group">
-    <%= ff.label :code, class: 'control-label col-lg-2' %>
-    <div class="col-lg-10">
-      <%= ff.text_field :code, :class => 'form-control', placeholder: 'Enter secret code', require: true %>
-    </div>
-  </div>
-  <% end %>
 
   <div class="form-group">
-      <div class="col-lg-offset-2 col-lg-10">
-        <%= f.submit "Sign up", :class => 'btn btn-primary' %>
-        <%= render "devise/shared/links" %>
-      </div>
+    <%= f.label :code, class: 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field "code_show", :class => 'form-control', placeholder: 'Enter secret code', require: true, disabled: true, value: SecretCode.available_secret_code %>
+      <%= f.hidden_field :code, value: SecretCode.available_secret_code %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-lg-offset-2 col-lg-10">
+      <%= f.submit "Sign up", :class => 'btn btn-primary' %>
+      <%= render "devise/shared/links" %>
+    </div>
   </div>
 <% end %>
