@@ -1,0 +1,23 @@
+<div class="modal fade" id="secret-codes-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="">Generate Secret Code</h4>
+      </div>
+      <div class="modal-body text-right">
+        <%= form_tag(:controller => "secret_codes", :action => "bulk_create") do%>
+          <div class="form-group row">
+            <%= label_tag :no_of_secret_code, nil, class: "col-sm-5 col-form-label" %>
+            <div class="col-sm-3">
+              <%= select_tag :no_of_secret_code, options_for_select(no_of_secret_code, 10), class: "form-control" %>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <%= button_tag "Close", class: "btn btn-secondary", 'data-dismiss': "modal" %>
+            <%= submit_tag "Generate secret codes", class: "btn btn-primary" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,29 +1,46 @@
 <h2>Sign up</h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), :html => { :class => "form-horizontal user" }) do |f| %>
+
+
   <%= render "devise/shared/error_messages", resource: resource %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  <div class="form-group">
+    <%= f.label :email, class: "control-label col-lg-2" %>
+    <div class="col-lg-10">
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", :class => 'form-control', placeholder: 'Enter email' %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
+  <div class="form-group">
+    <%= f.label :password, class: 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.password_field :password, autocomplete: "new-password", :class => 'form-control', placeholder: @minimum_password_length ? 'Enter password, ' + @minimum_password_length.to_s + ' characters minimum' : '' %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
 
-  <div class="actions">
-    <%= f.submit "Sign up" %>
+  <div class="form-group">
+    <%= f.label :password_confirmation, class: 'control-label col-lg-2' %><br />
+    <div class="col-lg-10">
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", :class => 'form-control', placeholder: 'Enter password confirmation' %>
+    </div>  
+  </div>
+  
+  <%= f.fields_for :secret_code_attributes, resource.secret_code do |ff|%>
+  <%#= f.fields_for(:secret_code) do |ff|%>
+  <div class="form-group">
+    <%= ff.label :code, class: 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= ff.text_field :code, :class => 'form-control', placeholder: 'Enter secret code', require: true %>
+    </div>
+  </div>
+  <% end %>
+
+  <div class="form-group">
+      <div class="col-lg-offset-2 col-lg-10">
+        <%= f.submit "Sign up", :class => 'btn btn-primary' %>
+        <%= render "devise/shared/links" %>
+      </div>
   </div>
 <% end %>
-
-<%= render "devise/shared/links" %>
